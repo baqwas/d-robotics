@@ -1,0 +1,39 @@
+name: Nominal Push Check
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  nominal-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Python syntax and stub CLI
+        run: |
+          python3 -m py_compile phase3_bpu_yolo_ros2/yolo_file_infer/python/bpu_yolo_infer.py
+          printf 'nominal-test-payload\n' > /tmp/nominal_input.txt
+          python3 phase3_bpu_yolo_ros2/yolo_file_infer/python/bpu_yolo_infer.py \
+            --input /tmp/nominal_input.txt \
+            --dry-run \
+            --output /tmp/nominal_py.json
+          test -s /tmp/nominal_py.json
+
+      - name: Build and run C++ stub
+        run: |
+          cmake -S phase3_bpu_yolo_ros2/yolo_file_infer/cpp_cmake \
+                -B /tmp/cpp_stub_build \
+                -DBUILD_STUB_BPU=ON
+          cmake --build /tmp/cpp_stub_build -j"$(nproc)"
+          /tmp/cpp_stub_build/bpu_yolo_file_infer \
+            --input /tmp/nominal_input.txt \
+            --dry-run \
+            --output /tmp/nominal_cpp.json
+          test -s /tmp/nominal_cpp.json
