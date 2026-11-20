@@ -175,3 +175,9 @@ cython_debug/
 .png
 .pt
 
+
+# Phase 3 build and ROS 2 workspace artifacts
+phase3_bpu_yolo_ros2/yolo_file_infer/cpp_cmake/build/
+phase3_bpu_yolo_ros2/ros2_ws/build/
+phase3_bpu_yolo_ros2/ros2_ws/install/
+phase3_bpu_yolo_ros2/ros2_ws/log/
