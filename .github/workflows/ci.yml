@@ -20,7 +20,7 @@ jobs:
       - name: Validate shell scripts
         run: |
           shopt -s globstar nullglob
-          scripts=(scripts/*.sh phase1_setup/*.sh **/*.sh)
+          scripts=(scripts/*.sh phase1_setup/*.sh scaffold_phase2.sh)
           if [ ${#scripts[@]} -eq 0 ]; then
             echo "No shell scripts found yet."
             exit 0

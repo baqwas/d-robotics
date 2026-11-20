@@ -28,7 +28,7 @@ warn() { printf "  ${C_YELLOW}▲${C_RESET} %s\n" "$1"; }
 err()  { printf "  ${C_RED}✖${C_RESET} %s\n" "$1"; }
 sec()  { printf "\n${C_BOLD}${C_CYAN}==> %s${C_RESET}\n" "$1"; }
 
-printf "${C_BOLD}=== RDK X3 Phase 1 Verification ===${C_RESET}\n"
+printf "%s=== RDK X3 Phase 1 Verification ===%s\n" "${C_BOLD}" "${C_RESET}"
 echo "Hostname: $(hostname)"
 echo "Kernel:   $(uname -r)"
 echo "OS:       $(grep -E '^(PRETTY_NAME)=' /etc/os-release 2>/dev/null | cut -d= -f2- | tr -d '\"')"
