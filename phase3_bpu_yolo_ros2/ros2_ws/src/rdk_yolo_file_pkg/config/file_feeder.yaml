@@ -1,0 +1,4 @@
+file_feeder_node:
+  ros__parameters:
+    input_path: "/tmp/board_check.txt"
+    period_sec: 2.0
